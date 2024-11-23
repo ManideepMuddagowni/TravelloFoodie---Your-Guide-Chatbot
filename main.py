@@ -1,7 +1,3 @@
-# pip install streamlit langchain lanchain-openai beautifulsoup4 python-dotenv chromadb
-
-import streamlit as st
-from langchain.schema.messages import AIMessage, HumanMessage
 from langchain.document_loaders import WebBaseLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import Chroma
@@ -186,6 +182,10 @@ async def get_all_links_from_url(request: UserInput):
         return {"links": list(links)}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error fetching links: {str(e)}")
+
+
+
+
 # Serve static files (CSS, JS, images)
 # Mount the 'static' folder to serve CSS, JS, and other assets
 from pathlib import Path
