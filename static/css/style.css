@@ -15,7 +15,7 @@ body {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background: #3498db;
+  background: #80aaff; /* Updated color */
   color: white;
   border-radius: 50%;
   width: 60px;
@@ -26,6 +26,11 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   cursor: pointer;
   z-index: 1000;
+}
+
+.chat-icon {
+  width: 40px;
+  height: 40px;
 }
 
 /* Chat Widget */
@@ -48,7 +53,7 @@ body {
 
 /* Chat Header */
 .chat-header {
-  background-color: #2c3e50;
+  background-color: #80aaff;
   color: white;
   padding: 10px;
   border-radius: 10px 10px 0 0;
@@ -72,14 +77,14 @@ body {
   flex: 1;
   overflow-y: auto;
   border-top: 1px solid #ddd;
-  background: #f9f9f9;
+  background: #e6eeff;
 }
 
 /* Chat Input */
 #chat-input-container {
   padding: 10px;
   border-top: 1px solid #ddd;
-  background: #fff;
+  background: #ffffff;
   display: flex;
   align-items: center;
 }
@@ -94,7 +99,7 @@ body {
 #chat-send-btn {
   margin-left: 10px;
   padding: 5px 10px;
-  background-color: #3498db;
+  background-color: #80aaff; /* Updated color */
   color: white;
   border: none;
   border-radius: 5px;
@@ -134,11 +139,11 @@ body {
 }
 
 .user .icon {
-  background-color: #3498db;
+  background-color: #80aaff; /* Updated color */
 }
 
 .user .content {
-  background-color: #e8f4fc;
+  background-color: #d9d9d9;
   color: #000;
 }
 
@@ -152,7 +157,7 @@ body {
 }
 
 .ai .content {
-  background-color: #f1f1f1;
+  background-color: #d9d9d9;
   color: #000;
 }
 
