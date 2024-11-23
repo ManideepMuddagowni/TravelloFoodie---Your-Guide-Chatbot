@@ -151,13 +151,3 @@ This serves static assets like CSS, JavaScript, and images for the chatbot front
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## Acknowledgments
-
-- **LangChain**: A library that simplifies the process of building complex applications using language models.
-- **FastAPI**: A modern, fast (high-performance) web framework for building APIs with Python.
-- **Streamlit**: A framework for creating data applications quickly and easily.
-- **Groq**: High-performance machine learning deployment and inference.
-- **BeautifulSoup**: A library for parsing HTML and XML documents and extracting data from them.
