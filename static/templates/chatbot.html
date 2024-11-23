@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TF - Chatbot</title>
+  <title>TravelloFoodie - Your AI Guide Assistant</title>
   <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
 
   <div id="chat-popup-btn">
-    <img src="/static/images/chat-popup-btn.png" alt="Chatbot Icon" style="width: 40px; height: 40px;">
+    <img src="/static/images/chat-popup-btn.png" alt="Chatbot Icon" class="chat-icon">
   </div>
 
   <div id="chat-widget">
@@ -22,25 +22,22 @@
         <div class="icon">
           <img src="/static/images/chatbot-icon.png" alt="AI" />
         </div>
-        <div class="content">Welcome to Travello Foodie - Your Travel and Food Guide! Ready to explore?</div>
+        <div class="content">Welcome to TravelloFoodie! Your travel and food guide is ready to assist you. How can I help today?</div>
       </div>
     </div>
     <div id="chat-input-container">
-      <input id="chat-input" placeholder="Type your message..." />
+      <input id="chat-input" placeholder="Ask me anything..." />
       <button id="chat-send-btn">Send</button>
     </div>
   </div>
 
-      <!-- Typing Indicator (Hidden by default) -->
-       
-      <div id="typing-indicator" class="message ai" style="display:none;">
-        <div class="icon">
-          <img src="/static/images/chatbot-icon.png" alt="AI" />
-        </div>
-        <div class="content typing">AI is typing...</div>
-      </div>
+  <!-- Typing Indicator (Hidden by default) -->
+  <div id="typing-indicator" class="message ai" style="display:none;">
+    <div class="icon">
+      <img src="/static/images/chatbot-icon.png" alt="AI" />
     </div>
-   
+    <div class="content typing">AI is typing...</div>
+  </div>
 
   <script src="/static/js/app.js"></script>
 </body>
