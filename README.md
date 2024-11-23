@@ -1,5 +1,7 @@
 # TravelloFoodie - Your Guide - Chatbot with Web Scraping and Conversational Retrieval
 
+### This solution is built using completely open-source technologies
+
 This project implements a chatbot that retrieves answers from a specified website's content using web scraping and conversational retrieval techniques. It uses **LangChain** for building the conversational logic, **Chroma** for vector-based document retrieval, **FastAPI** for serving the backend, and HTML, CSS, Javascript  for creating a user-friendly front-end interface.
 
 ---
