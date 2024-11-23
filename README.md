@@ -63,30 +63,16 @@ GROQ_API_KEY = ""
 
 The project follows a structured directory layout:TravelloFoodie - Your Guide -web-scraping
 chatbot
-│
-├── main.py                    # Backend logic using FastAPI
-├── requirements.txt      # List of Python dependencies
-├── .env                          # Environment file for sensitive data (API Key)
-│
-├── static/               	 # Static assets (CSS, JS, images)
-│   ├── css/
-│   │   └── style.css     	 # Custom styles for the frontend
-│   ├── js/
-│   │   └── app.js        	 # Frontend JavaScript
-│   ├── images/           	 # Chatbot images/icons
-│   │   └── chatbot-icon.png
-│   └── templates/        	 # HTML templates
-│       └── chatbot.html   # Main HTML file for the frontend
-│
-└── .env                  	 # Environment file for sensitive data (API Key)
+
+![1732368401657](image/README/1732368401657.png)
 
 ---
 
 ## Usage
 
-### 1. Start the FastAPI server:
+### 1. Start the server:
 
-Run the FastAPI server with:
+Run the server with:
 
 ```bash
 uvicorn main:app --reload
@@ -94,7 +80,13 @@ uvicorn main:app --reload
 
 This will start the API on `http://127.0.0.1:8000`. You can then interact with the chatbot through the provided frontend.
 
-### 2. Open the frontend:
+### 2. Start the server using FASTAPI
+
+`uvicorn main:app --reload`
+
+This will start the API on `http://127.0.0.1:8000/docs`. Insert the URL which you want to scrape in `/get_all_links/` [POST] You can then interact with the chatbot through the provided Swagger UI.
+
+### 3. Open the frontend:
 
 Open your browser and navigate to the provided URL to interact with the chatbot:
 
@@ -102,7 +94,7 @@ Open your browser and navigate to the provided URL to interact with the chatbot:
 http://127.0.0.1:8000/
 ```
 
-### 3. Ask questions:
+### 4. Ask questions:
 
 The chatbot will retrieve answers based on the content scraped from the website, provided as part of the backend logic. The conversation is stored as a chat history, ensuring context is preserved during the conversation.
 
