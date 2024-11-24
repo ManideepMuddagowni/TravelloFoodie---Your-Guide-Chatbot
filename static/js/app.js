@@ -6,6 +6,48 @@ document.addEventListener("DOMContentLoaded", function () {
   const chatSendBtn = document.getElementById("chat-send-btn");
   const chatCloseBtn = document.getElementById("chat-close-btn");
 
+  // List of predefined messages with greetings
+  const predefinedMessages = [
+    "Hi there! Welcome to TravelloFoodie! Ready to explore?",
+    "Hello! Hungry for adventure? Let's discover new cuisines and destinations with TravelloFoodie!",
+    "Hi! TravelloFoodie is here to guide your taste buds and travel dreams.",
+    "Hello! Exploring new places? Let TravelloFoodie help you plan the perfect trip and meal.",
+    "Hi! Looking for amazing food and travel experiences? You're in the right place with TravelloFoodie!",
+    "Hello! Travel and food go hand in hand. Let TravelloFoodie help you explore them both!",
+    "Hi! Ready to taste the world? Let TravelloFoodie be your guide!",
+    "Hello! The best food, the best destinations. Ready for your next adventure with TravelloFoodie?",
+    "Hi! Let TravelloFoodie help you find the best culinary spots while traveling. What's your next destination?",
+    "Hello! Explore the world, one bite at a time. TravelloFoodie is here to assist!"
+  ];
+
+  // Show one predefined message when the page loads
+  function displayRandomMessage() {
+    const randomMessage = predefinedMessages[Math.floor(Math.random() * predefinedMessages.length)];
+
+    // Create AI message element
+    const aiMessageElement = document.createElement("div");
+    aiMessageElement.classList.add("message", "ai");
+
+    // AI icon
+    const aiIcon = document.createElement("div");
+    aiIcon.classList.add("icon");
+    const aiImg = document.createElement("img");
+    aiImg.src = "/static/images/chatbot-icon.png"; // AI icon
+    aiImg.alt = "AI";
+    aiIcon.appendChild(aiImg);
+
+    const aiContent = document.createElement("div");
+    aiContent.classList.add("content");
+    aiContent.innerText = randomMessage;
+
+    aiMessageElement.appendChild(aiIcon);
+    aiMessageElement.appendChild(aiContent);
+    chatMessages.appendChild(aiMessageElement);
+  }
+
+  // Display one random message when the page loads
+  displayRandomMessage();
+
   // Open the chat widget
   chatPopupBtn.addEventListener("click", () => {
     chatWidget.style.display = "flex";
@@ -33,8 +75,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const userImg = document.createElement("img");
     userImg.src = "/static/images/user-icon.png"; // Correct path to user icon
     userImg.alt = "User";
-
-    // Append user icon directly without checking load status
     userIcon.appendChild(userImg);
 
     const userContent = document.createElement("div");
@@ -60,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const typingContent = document.createElement("div");
     typingContent.classList.add("content");
-    typingContent.innerText = "AI is typing...";
+    typingContent.innerText = "typing...";
 
     typingIndicator.appendChild(typingIcon);
     typingIndicator.appendChild(typingContent);
