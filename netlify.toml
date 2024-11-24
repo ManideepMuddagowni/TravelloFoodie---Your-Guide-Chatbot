@@ -1,4 +1,4 @@
 [[redirects]]
 from = "/*"
-to = "/main.py"
+to = "/static/templates/chatbot.html"
 status = 200
