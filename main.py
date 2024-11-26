@@ -1,200 +1,216 @@
 from langchain.document_loaders import WebBaseLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import Chroma
-from dotenv import load_dotenv
-from langchain_groq import ChatGroq
-from langchain.chains import ConversationalRetrievalChain
-from langchain.chains import ConversationalRetrievalChain
 from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.prompts import PromptTemplate
-from langchain.chains import LLMChain
 from bs4 import BeautifulSoup
 import requests
-from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
-
-
-
-
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from typing import Dict
-from fastapi import FastAPI, HTTPException
-from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-import json
+from langchain.chains import create_history_aware_retriever, create_retrieval_chain
+from langchain.chains.combine_documents import create_stuff_documents_chain
+from langchain_groq import ChatGroq
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+import logging
+import os
+from urllib.parse import urlparse
+from fastapi import HTTPException
+from pathlib import Path
 
+# FastAPI setup
 app = FastAPI()
 
-
+# CORS Middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5500/get_response/"],  # Allow all origins, or specify the file URL: ["file:///F:/index.html"]
+    allow_origins=["http://localhost:5500/get_response/"],  # Allow specific origin
     allow_credentials=True,
     allow_methods=["*"],  # Allow all methods like GET, POST, etc.
     allow_headers=["*"],  # Allow all headers
 )
 
+# Logging setup
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
+# Constants
+ALLOWED_URL = "https://www.travellofoodie.com/"
+persist_directory = "./chroma_db"
+embedding_model = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")  # Example embedding model
 
-
-# A placeholder to simulate vector store and chat history storage
+# Placeholder for session data (vector store and chat history)
 session_data = {
     "vector_store": None,
     "chat_history": []
 }
 
-# Define User Input model
+# User Input model
 class UserInput(BaseModel):
     question: str
 
-# Define Persist Directory and Embedding Model
-persist_directory = "./chroma_db"
-embedding_model = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")  # Example: a commonly used open-source model
-
-# Define prompt template
-prompt_template = """
-You are an intelligent assistant that has access to the content of a specific provided website. Your task is to answer the user's questions solely based on the content from this website.
-
-Please make sure your response is based only on the information provided on the website. 
-
-Do not use any outside knowledge at all. If it is not available on the website, simply say 'I could not find the answer for this question'.
-
-Chat History:
-{chat_history}
-
-User's Question:
-{question}
-
-Answer based strictly on the website content:
-"""
-prompt = PromptTemplate(input_variables=["chat_history", "question"], template=prompt_template)
-
-
-def get_all_links(base_url: str) -> set:
+# Utility to check and load/create the vector store
+def load_or_create_vectorstore(url: str):
     """
-    Fetch all internal links from the given base URL.
+    Load the vector store if it exists, otherwise scrape and create a new one.
     """
-    response = requests.get(base_url)
-    soup = BeautifulSoup(response.content, 'html.parser')
-    base_domain = requests.utils.urlparse(base_url).netloc
-
-    links = set()
-    for a_tag in soup.find_all('a', href=True):
-        href = a_tag['href']
-        if not href.startswith('http'):  # Handle relative links
-            href = requests.compat.urljoin(base_url, href)
-        # Only include links within the same domain
-        if base_domain in requests.utils.urlparse(href).netloc:
-            links.add(href)
-    return links
-
-
-def get_vectorstore_from_url(url: str):
-    """
-    Create a vector store from all pages linked from the provided URL.
-    """
-    # Get all linked pages from the base URL
-    links = get_all_links(url)
-    
-    all_documents = []
-    for link in links:
-        try:
-            # Load the content of each page
-            loader = WebBaseLoader(link)
-            document = loader.load()
-            all_documents.extend(document)
-        except Exception as e:
-            print(f"Error loading {link}: {e}")
-
-    # Split the documents into chunks
-    text_splitter = RecursiveCharacterTextSplitter()
-    document_chunks = text_splitter.split_documents(all_documents)
-    
-    # Create a vectorstore from the chunks using open-source embeddings
-    vector_store = Chroma.from_documents(document_chunks, embedding_model, persist_directory=persist_directory)
+    if os.path.exists(persist_directory):
+        # Load the existing vector store
+        logger.info(f"Loading existing vector store from {persist_directory}.")
+        vector_store = Chroma(persist_directory=persist_directory, embedding_function=embedding_model)
+    else:
+        # Create a new vector store by scraping the website
+        logger.info(f"Creating new vector store from {url}.")
+        vector_store = get_vectorstore_from_url(url)
     
     return vector_store
 
+# Scraping function to extract all links from the website
+def get_all_links(base_url: str) -> set:
+    if base_url != ALLOWED_URL:
+        raise HTTPException(status_code=400, detail=f"Only {ALLOWED_URL} is allowed.")
+    
+    try:
+        logger.info(f"Fetching links from {base_url}...")
+        response = requests.get(base_url)
+        response.raise_for_status()
+        soup = BeautifulSoup(response.content, 'html.parser')
+        base_domain = urlparse(base_url).netloc
+        # Extract internal links
+        links = set()
+        
+        for a_tag in soup.find_all('a', href=True):
+            href = a_tag['href']
+            if not href.startswith('http'):
+                href = requests.compat.urljoin(base_url, href)
+            if urlparse(href).netloc == base_domain:
+                links.add(href)
 
+        logger.info(f"Found {len(links)} links.")
+        return links
+    except Exception as e:
+        logger.error(f"Error fetching links from {base_url}: {e}")
+        raise HTTPException(status_code=500, detail=f"Error fetching links: {str(e)}")
+
+# Vector store creation from scraped website content
+def get_vectorstore_from_url(url: str):
+    """
+    Create a vector store from all pages of the specified URL.
+    Restricts scraping and storage to the predefined ALLOWED_URL.
+    """
+    if url != ALLOWED_URL:
+        raise HTTPException(status_code=400, detail="Only the fixed URL can be used to create the vector store.")
+    
+    links = get_all_links(url)
+    all_documents = []
+    
+    for link in links:
+        try:
+            logger.info(f"Loading documents from {link}...")
+            loader = WebBaseLoader(link)
+            documents = loader.load()
+            all_documents.extend(documents)
+            logger.info(f"Successfully loaded {len(documents)} documents from {link}.")
+        except Exception as e:
+            logger.error(f"Error loading {link}: {e}")
+    
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100, add_start_index=True)
+    document_chunks = text_splitter.split_documents(all_documents)
+    
+    logger.info(f"Splitting documents into {len(document_chunks)} chunks.")
+    vector_store = Chroma.from_documents(document_chunks, embedding_model, persist_directory=persist_directory)
+    
+    logger.info("Vector store created successfully.")
+    return vector_store
+# Conversational RAG Chain setup
 def get_context_retriever_chain(vector_store):
-    # Convert vector store to retriever
-    retriever = vector_store.as_retriever(search_kwargs={"k": 5})
+    """
+    Creates and returns a retriever chain from the given vector store.
+    """
+    try:
+        # Initialize the retriever with similarity search
+        retriever = vector_store.as_retriever(search_type="similarity", search_kwargs={"k": 5})
+        logger.info("Retriever chain created successfully.")
+        return retriever
+    except Exception as e:
+        logger.error(f"Error creating retriever chain: {e}")
+        raise HTTPException(status_code=500, detail="Failed to initialize the retriever chain.")
 
-    # Set up the language model
+
+def get_conversational_rag_chain(retriever_chain): 
     llm = ChatGroq(
         model="llama-3.1-8b-instant",
         temperature=0.0,
         max_retries=2,
-        api_key="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"  # Ensure API key is loaded from the environment
-    )
-
-    # Create the LLMChain with the prompt and LLM
-    prompt_chain = LLMChain(llm=llm, prompt=prompt)
-
-    # Create the ConversationalRetrievalChain with the prompt chain
-    retriever_chain = ConversationalRetrievalChain.from_llm(
-        llm=llm,
-        retriever=retriever,
-        return_source_documents=False,  # Set to True if you need the source documents as well
-        verbose=True  # Optional, to debug the chain
+        api_key="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"
     )
     
-    return retriever_chain
-
-
+    prompt = ChatPromptTemplate.from_messages([(
+        "system", """
+        You are an intelligent assistant greet the customers politely based on their question you are responsible for answering user questions strictly based on the content provided on the specific website based only from the given context:\n\n{context}
+        If the information is not available on provided specific website, respond with:
+        'I couldn't find the answer to this question on the website'
+        """),
+        MessagesPlaceholder(variable_name="chat_history"),
+        ("user", "{input}")
+    ])
+    
+    stuff_documents_chain = create_stuff_documents_chain(llm, prompt)
+    
+    return create_retrieval_chain(retriever_chain, stuff_documents_chain)
 @app.post("/get_response/")
 async def get_response(user_input: UserInput):
-    """
-    Endpoint to generate a response based on the content of the provided website.
-    """
-    # Ensure that the vector store is already set up
+    logger.info(f"Received user input: {user_input.question}")
+    
+    if "http://" in user_input.question or "https://" in user_input.question:
+        logger.warning(f"Invalid question: URLs are not allowed. User asked: {user_input.question}")
+        return {"answer": "Only questions about the website 'https://www.travellofoodie.com/' are allowed."}
+    
+    # Load or create the vector store if not already loaded
     if session_data["vector_store"] is None:
-        # Example URL, you should replace this with the actual URL you want to scrape
-        session_data["vector_store"] = get_vectorstore_from_url("https://www.travellofoodie.com/")
+        logger.info("No vector store found in session, loading or creating it.")
+        session_data["vector_store"] = load_or_create_vectorstore(ALLOWED_URL)
     
-    # Get the retriever chain using the vector store
-    retriever_chain = get_context_retriever_chain(session_data["vector_store"])
-    
-    # Prepare the input data with the correct key
-    input_data = {
-        "chat_history": session_data["chat_history"],
-        "question": user_input.question  # Using the 'question' from the input
-    }
-    
-    # Generate the response using the retriever chain
+    # Create the retriever chain and RAG conversational chain
+    retriever = get_context_retriever_chain(session_data["vector_store"])
+    conversation_rag_chain = get_conversational_rag_chain(retriever)
+
     try:
-        response = retriever_chain.invoke(input_data)
+        # Invoke the conversational RAG chain
+        response = conversation_rag_chain.invoke({
+            "chat_history": session_data["chat_history"],
+            "input": user_input.question
+        })
+
+        # Handle empty responses gracefully
+        if response['answer'].strip() == "":
+            logger.info("No relevant answer found, responding with default message.")
+            return {"answer": "I couldn't find the answer to this question on the website: https://www.travellofoodie.com/."}
+        
+        logger.info(f"Generated response: {response['answer']}")
         return {"answer": response['answer']}
+    
     except Exception as e:
+        logger.error(f"Error generating response: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error generating response: {str(e)}")
 
 
 @app.post("/get_all_links/")
-async def get_all_links_from_url(request: UserInput):
-    """
-    Endpoint to fetch all internal links from the given base URL.
-    """
+async def get_all_links_from_base_url():
     try:
-        links = get_all_links(request.question)  # Using the question field as the base URL
+        logger.info(f"Fetching all links from the base URL {ALLOWED_URL}.")
+        links = get_all_links(ALLOWED_URL)
         return {"links": list(links)}
     except Exception as e:
+        logger.error(f"Error fetching links: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error fetching links: {str(e)}")
 
-
-
-
 # Serve static files (CSS, JS, images)
-# Mount the 'static' folder to serve CSS, JS, and other assets
-from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent
 STATIC_DIR = BASE_DIR / "static"
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
-
 @app.get("/", response_class=HTMLResponse)
 async def get_chatbot_page():
-    # Serve the chatbot HTML page
     return HTMLResponse(content=open("static/templates/chatbot.html").read())
