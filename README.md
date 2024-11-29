@@ -1,9 +1,20 @@
 # TravelloFoodie - Your Guide - Chatbot with Web Scraping and Conversational Retrieval
 
 ### This solution is built using completely open-source technologies
+---
+The TravelloFoodie - Your Guide Chatbot is a project designed to create an intelligent chatbot for retrieving information from websites using web scraping and conversational retrieval. It integrates several technologies to provide a seamless user experience:
 
-This project implements a chatbot that retrieves answers from a specified website's content using web scraping and conversational retrieval techniques. It uses **LangChain** for building the conversational logic, **Chroma** for vector-based document retrieval, **FastAPI** for serving the backend, and HTML, CSS, Javascript  for creating a user-friendly front-end interface.
+Core Functionality: The chatbot scrapes internal links and content from a user-specified website and uses conversational AI to answer queries based on the retrieved content. It maintains context throughout the conversation for relevant and precise responses.
 
+Technologies Used:
+
+LangChain: Powers conversational logic and retrieval-based query answering.
+Chroma: Handles vector-based document retrieval.
+FastAPI: Serves as the backend API for processing requests.
+Frontend: Built with HTML, CSS, and JavaScript for a user-friendly interface.
+ChatGroq: Provides advanced conversational capabilities using Llama-3.1.
+
+---
 
 ### Demo
 
@@ -23,17 +34,6 @@ https://github.com/user-attachments/assets/f7c9add1-5ac6-417c-b4ca-f7a0df63797f
 7. [License](#license)
 
 ---
-
-## Overview
-
-This chatbot allows users to ask questions, and it retrieves answers based on the content scraped from a provided website. It uses a combination of web scraping, document chunking, vectorization, and a conversational chain to provide accurate, context-based answers to user queries.
-
-Key Features:
-
-- Web scraping: Extracts all internal links from a provided website and loads the content.
-- Conversational retrieval: Uses a retrieval chain to maintain context and answer questions from the website content.
-- FastAPI backend: Serves as the API to process user requests.
-- Static assets: Uses `HTML`, `CSS`, and `JavaScript` for frontend interaction.
 
 ## Requirements
 
