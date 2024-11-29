@@ -11,9 +11,9 @@ A sophisticated chatbot designed for retrieving and presenting website informati
 🔄 Context Maintenance: Ensures seamless and accurate conversation flow.
 
 ## 💻 Technologies Used
-LangChain 🧠: Enables conversational logic and retrieval-based query answering.
-Chroma 📂: Supports vector-based document storage and retrieval.
-FastAPI 🚀: Back-end API framework for managing requests efficiently.
+- LangChain 🧠: Enables conversational logic and retrieval-based query answering.
+- Chroma 📂: Supports vector-based document storage and retrieval.
+- FastAPI 🚀: Back-end API framework for managing requests efficiently.
 Frontend 🎨: Built using HTML, CSS, and JavaScript for a smooth user interface.
 ChatGroq ⚡: Incorporates Llama-3.1 for advanced AI-driven conversations.
 
