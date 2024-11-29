@@ -36,7 +36,7 @@ https://github.com/user-attachments/assets/f7c9add1-5ac6-417c-b4ca-f7a0df63797f
 
 1. [Overview](#Overview)
 2. [Core Functionality](#CoreFunctionality)
-3. [Technologies Used](Technologies-Used)
+3. [Technologies Used](#TechnologiesUsed)
 4. [Demo](#Demo)
 5. [Features](#Features)
 6. [Requirements](#requirements)
