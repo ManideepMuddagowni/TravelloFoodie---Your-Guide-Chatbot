@@ -4,10 +4,12 @@
 
 This project implements a chatbot that retrieves answers from a specified website's content using web scraping and conversational retrieval techniques. It uses **LangChain** for building the conversational logic, **Chroma** for vector-based document retrieval, **FastAPI** for serving the backend, and HTML, CSS, Javascript  for creating a user-friendly front-end interface.
 
----
+
 ### Demo
 
-https://github.com/user-attachments/assets/3934f5b7-0310-4efa-a95b-995a1e04d535
+https://github.com/user-attachments/assets/f7c9add1-5ac6-417c-b4ca-f7a0df63797f
+
+
 
 
 ## Table of Contents
