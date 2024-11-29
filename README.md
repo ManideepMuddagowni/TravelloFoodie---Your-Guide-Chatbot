@@ -1,5 +1,6 @@
 ## 🌟 TravelloFoodie - Your Guide AI Chatbot 🌟
-
+---
+### Overview
 #### Developed a Generative AI-powered travel chatbot for my travel website for retrieving and presenting website information using web scraping and conversational AI for dynamic and interactive user experiences
 ---
 ### This solution is built using completely open-source technologies
@@ -30,17 +31,21 @@ https://github.com/user-attachments/assets/f7c9add1-5ac6-417c-b4ca-f7a0df63797f
 - 🌟 User-Friendly Design: An intuitive and engaging interface.
 - ⚙️ Customizable & Scalable: Tailored to support various use cases and scalable across domains.
 
+---
 ### Table of Contents
 
-1. [Overview](#overview)
-2. [Requirements](#requirements)
-3. [Installation](#installation)
-4. [Project Structure](#project-structure)
-5. [Usage](#usage)
-6. [Endpoints](#endpoints)
-7. [License](#license)
-
----
+1. [Overview](#Overview)
+2. [Core Functionality](#Core-Functionality)
+3. [Technologies Used](Technologies-Used)
+4. [Demo](#Demo)
+5. [Features](#Features)
+6. [Requirements](#requirements)
+7. [Installation](#installation)
+8. [Project Structure](#project-structure)
+9. [Usage](#usage)
+10. [Endpoints](#endpoints)
+11. [License](#license)
+12. ---
 
 ### Requirements
 
