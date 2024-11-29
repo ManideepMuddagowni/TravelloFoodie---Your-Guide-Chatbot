@@ -1,10 +1,8 @@
-# TravelloFoodie - Your Guide - Chatbot with Web Scraping and Conversational Retrieval
-
-### This solution is built using completely open-source technologies
----
 ## 🌟 TravelloFoodie - Your Guide Chatbot 🌟
 Developed a Generative AI-powered travel chatbot for my travel website for retrieving and presenting website information using web scraping and conversational AI for dynamic and interactive user experiences
-
+---
+### This solution is built using completely open-source technologies
+---
 ## 🛠️ Core Functionality
 - 🌐 Website Scraping: Extracts internal links and content from a specified website.
 - 🤖 Conversational AI: Provides intelligent, context-aware responses to user queries.
