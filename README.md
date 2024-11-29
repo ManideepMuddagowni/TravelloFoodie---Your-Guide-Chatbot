@@ -4,12 +4,12 @@
 ---
 ### This solution is built using completely open-source technologies
 ---
-## 🛠️ Core Functionality
+### 🛠️ Core Functionality
 - 🌐 Website Scraping: Extracts internal links and content from a specified website.
 - 🤖 Conversational AI: Provides intelligent, context-aware responses to user queries.
 - 🔄 Context Maintenance: Ensures seamless and accurate conversation flow.
 
-## 💻 Technologies Used
+### 💻 Technologies Used
 - LangChain 🧠: Enables conversational logic and retrieval-based query answering.
 - Chroma 📂: Supports vector-based document storage and retrieval.
 - FastAPI 🚀: Back-end API framework for managing requests efficiently.
@@ -25,12 +25,12 @@ https://github.com/user-attachments/assets/f7c9add1-5ac6-417c-b4ca-f7a0df63797f
 
 
 ---
-## ✨ Features
+### ✨ Features
 📊 Intelligent Querying: Delivers precise answers to user questions based on scraped website content.
 🌟 User-Friendly Design: An intuitive and engaging interface.
 ⚙️ Customizable & Scalable: Tailored to support various use cases and scalable across domains.
 
-## Table of Contents
+### Table of Contents
 
 1. [Overview](#overview)
 2. [Requirements](#requirements)
@@ -42,7 +42,7 @@ https://github.com/user-attachments/assets/f7c9add1-5ac6-417c-b4ca-f7a0df63797f
 
 ---
 
-## Requirements
+### Requirements
 
 ```bash
 pip install -r requirements.txt
@@ -50,7 +50,7 @@ pip install -r requirements.txt
 
 ---
 
-## Installation
+### Installation
 
 ### 1. Clone the repository:
 
@@ -74,7 +74,7 @@ GROQ_API_KEY = ""
 
 ---
 
-## Project Structure
+### Project Structure
 
 The project follows a structured directory layout:TravelloFoodie - Your Guide -web-scraping
 chatbot
@@ -83,7 +83,7 @@ chatbot
 
 ---
 
-## Usage
+### Usage
 
 ### 1. Start the server:
 
@@ -115,7 +115,7 @@ The chatbot will retrieve answers based on the content scraped from the website,
 
 ---
 
-## Endpoints
+### Endpoints
 
 ### `/get_response/` [POST]
 
