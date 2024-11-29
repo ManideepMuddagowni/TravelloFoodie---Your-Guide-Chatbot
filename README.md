@@ -35,8 +35,8 @@ https://github.com/user-attachments/assets/f7c9add1-5ac6-417c-b4ca-f7a0df63797f
 ### Table of Contents
 
 1. [Overview](#Overview)
-2. [Core Functionality](#CoreFunctionality)
-3. [Technologies Used](#TechnologiesUsed)
+2. [Core Functionality](#core-functionality)
+3. [Technologies Used](#technologies-used)
 4. [Demo](#Demo)
 5. [Features](#Features)
 6. [Requirements](#requirements)
@@ -45,7 +45,7 @@ https://github.com/user-attachments/assets/f7c9add1-5ac6-417c-b4ca-f7a0df63797f
 9. [Usage](#usage)
 10. [Endpoints](#endpoints)
 11. [License](#license)
-12. ---
+---
 
 ### Requirements
 
