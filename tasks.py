@@ -18,7 +18,7 @@ travel_itinerary_research_task = Task(
 # Writing task with language model configuration
 travel_itinerary_write_task = Task(
   description=(
-    "get the info from the website on the topic {question}."
+    "Get the info from the website on the topic {question}."
   ),
   expected_output="""Present detailed recommendations for must-visit places, activities, and 
                     any notable travel tips, including suggested day-wise plans based on the {question}.""",
