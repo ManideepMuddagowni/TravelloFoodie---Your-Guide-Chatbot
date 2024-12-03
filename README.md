@@ -16,14 +16,8 @@
 - FastAPI 🚀: Back-end API framework for managing requests efficiently.
 - Frontend 🎨: Built using HTML, CSS, and JavaScript for a smooth user interface.
 - ChatGroq ⚡: Incorporates Llama-3.1 for advanced AI-driven conversations.
+---
 
-
-### Demo
-
-<<<<<<< HEAD
-
-### Table of Contents
-=======
 ### Demo
 
 https://github.com/user-attachments/assets/f7c9add1-5ac6-417c-b4ca-f7a0df63797f

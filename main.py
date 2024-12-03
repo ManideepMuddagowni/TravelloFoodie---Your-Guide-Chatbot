@@ -146,6 +146,7 @@ def get_conversational_rag_chain(retriever_chain):
         api_key="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"
     )
     
+    
     prompt = ChatPromptTemplate.from_messages([(
         "system", """
         You are an intelligent assistant greet the customers politely based on their question you are responsible for answering user questions strictly based on the content provided on the specific website based only from the given context:\n\n{context}
