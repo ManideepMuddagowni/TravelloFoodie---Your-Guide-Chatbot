@@ -11,3 +11,5 @@ langchain-groq
 flask
 fastapi
 sentence-transformers
+crewai
+crewai_tools
