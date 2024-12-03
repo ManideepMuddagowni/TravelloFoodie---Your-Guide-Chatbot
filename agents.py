@@ -1,8 +1,6 @@
 from crewai import Agent
 from tools import any_website_tool
-
 from dotenv import load_dotenv
-import os
 
 # Load environment variables
 load_dotenv()
