@@ -1,7 +1,3 @@
-## 🌟 TravelloFoodie - Your Guide AI Chatbot 🌟
-
----
-
 ### Overview
 
 Developed a **Generative AI-powered travel chatbot** for my travel website, designed to retrieve and present information dynamically using web scraping and conversational AI. The chatbot delivers an interactive user experience by engaging in real-time conversations. It features **AI agents** that handle cases where information is unavailable on the website. Upon user consent, these agents fetch the required data from external sources, ensuring a seamless and user-controlled interaction.
