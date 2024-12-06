@@ -100,13 +100,22 @@ chatbot
 
 ### Usage
 
-### 1. Start the server:
+### 1. Start the server without agents:
 
 Run the server with:
 
 ```bash
 uvicorn main:app --reload
 ```
+
+### 2. Start the server using agents:
+
+Run the server with:
+
+```bash
+uvicorn agents_main:app --reload
+```
+
 
 This will start the API on `http://127.0.0.1:8000`. You can then interact with the chatbot through the provided frontend.
 
