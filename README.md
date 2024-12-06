@@ -30,7 +30,7 @@ Developed a **Generative AI-powered travel chatbot** for my travel website, desi
 ---
 
 ### Demo
-https://github.com/ManideepMuddagowni/TravelloFoodie---Your-Guide-Chatbot/issues/2#issue-2722756520
+[https://github.com/ManideepMuddagowni/TravelloFoodie---Your-Guide-Chatbot/issues/2#issue-2722756520](https://github.com/user-attachments/assets/1d73cbce-23df-4784-8228-1e74c71b6654)
 
 #### ✨ Features
 
