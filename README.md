@@ -30,8 +30,8 @@ Developed a **Generative AI-powered travel chatbot** for my travel website, desi
 ---
 
 ### Demo
-https://github.com/user-attachments/assets/eb77c26f-4553-4e44-8cc0-a19538d32dfc
----
+https://github.com/ManideepMuddagowni/TravelloFoodie---Your-Guide-Chatbot/issues/2#issue-2722756520
+
 #### ✨ Features
 
 - 📊 Intelligent Querying: Delivers precise answers to user questions based on scraped website content.
