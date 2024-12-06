@@ -130,7 +130,7 @@ def get_context_retriever_chain(vector_store):
     """
     try:
         # Initialize the retriever with similarity search
-        retriever = vector_store.as_retriever(search_type="similarity", search_kwargs={"k": 5})
+        retriever = vector_store.as_retriever(search_type="similarity", search_kwargs={"k": 10})
         logger.info("Retriever chain created successfully.")
         return retriever
     except Exception as e:
@@ -143,15 +143,15 @@ def get_conversational_rag_chain(retriever_chain):
         model="llama-3.1-8b-instant",
         temperature=0.0,
         max_retries=2,
-        api_key="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"
+        api_key=""
     )
     
     
     prompt = ChatPromptTemplate.from_messages([(
         "system", """
-        You are an intelligent assistant greet the customers politely based on their question you are responsible for answering user questions strictly based on the content provided on the specific website based only from the given context:\n\n{context}
+        You are an intelligent assistant greet the customers politely based on their question you are responsible for answering user questions strictly based on the content provided from the specific website based on the given context:\n\n{context}
         If the information is not available on provided specific website, respond with:
-        'I couldn't find the answer to this question on the website'
+        'I couldn't find the information to this question on the website'
         """),
         MessagesPlaceholder(variable_name="chat_history"),
         ("user", "{input}")
