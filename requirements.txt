@@ -13,5 +13,3 @@ fastapi
 sentence-transformers
 crewai
 crewai_tools
-python-3.10.12
-
